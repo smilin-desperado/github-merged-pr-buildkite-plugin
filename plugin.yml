@@ -8,6 +8,8 @@ configuration:
       type: string
     update_prs:
       type: boolean
+    update_pipeline:
+      type: string
     oldest_pr:
       type: integer
   required: []
