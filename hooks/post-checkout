@@ -32,6 +32,8 @@ trigger_pr_branch() {
   local pr_limit="${BUILDKITE_PLUGIN_GITHUB_MERGED_PR_OLDEST_PR:-false}"
   local slug="${BUILDKITE_PLUGIN_GITHUB_MERGED_PR_UPDATE_PIPELINE:-$BUILDKITE_PIPELINE_SLUG}"
   echo "slug ${slug}"
+  echo "sha ${sha}"
+  echo "pr ${pr}"
 
   # Unless we're filtering old PRs and this one is old
   if [[ "${pr_limit}" != "false" ]] && [[ "${pr}" -lt "${pr_limit}" ]]; then
