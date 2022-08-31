@@ -48,7 +48,7 @@ trigger_pr_branch() {
   fi
 
   set +e
-  branch="$(git branch -a -q --contains "${sha}" 2>/dev/null | grep 'remotes/origin' | grep -v -e 'remotes/origin/main' -e 'remotes/origin/HEAD' | sed -e 's,^[[:space:]]*remotes/origin/,,g')"
+  branch="$(git branch -a -q --contains "${sha}" 2>/dev/null | grep 'remotes/origin' | grep -v -e 'remotes/origin/master' -e 'remotes/origin/HEAD' | sed -e 's,^[[:space:]]*remotes/origin/,,g')"
   set -e
 
   # Unless the PR branch was deleted
