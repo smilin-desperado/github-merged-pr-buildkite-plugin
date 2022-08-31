@@ -31,14 +31,17 @@ trigger_pr_branch() {
   local pr=$(awk -F'/' '{print $3}' <<< "${2}")
   local pr_limit="${BUILDKITE_PLUGIN_GITHUB_MERGED_PR_OLDEST_PR:-false}"
   local slug="${BUILDKITE_PLUGIN_GITHUB_MERGED_PR_UPDATE_PIPELINE:-$BUILDKITE_PIPELINE_SLUG}"
+  echo "slug ${slug}"
 
   # Unless we're filtering old PRs and this one is old
   if [[ "${pr_limit}" != "false" ]] && [[ "${pr}" -lt "${pr_limit}" ]]; then
+    echo "Old PR detected"
     return
   fi
 
   # Unless the commit already exists in the default branch (i.e. PR is merged)
   if git merge-base --is-ancestor "${sha}" "origin/${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" 2>/dev/null; then
+    echo "Commit already exists"
     return
   fi
 
@@ -48,6 +51,7 @@ trigger_pr_branch() {
 
   # Unless the PR branch was deleted
   if [[ "${branch}" == "" ]]; then
+    echo "Branch was deleted"
     return
   fi
 
